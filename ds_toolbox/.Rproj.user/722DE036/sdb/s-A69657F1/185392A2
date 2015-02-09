@@ -1,0 +1,17 @@
+{
+    "contents" : "url <- \"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv\"\ndownload.file(url, destfile = \"data_quiz1.csv\")\ndata <- read.csv(\"getdata-data-ss06hid.csv\")\nsummary(data$VAL)\nvalues <- data %>% filter(VAL == 24)\n\ndat <- read.table(\"xl2.csv\")\ndat <- data[18:23, 7:15]\nsum(dat$Zip*dat$Ext,na.rm=T) \nnames(dat)\n\n\ndat <- \"\"\n\n\nDT <- fread(\"datatable.csv\")\nsystem.time(tapply(DT$pwgtp15,DT$SEX,mean))\n0.003 0.000 0.002\nsystem.time(mean(DT$pwgtp15,by=DT$SEX))\n0 0 0\nsystem.time(rowMeans(DT)[DT$SEX==1]; rowMeans(DT)[DT$SEX==2])\nlibrary(swirl)\nsystem.time(DT[,mean(pwgtp15),by=SEX])\n0.007 0.000 0.007\nsystem.time(mean(DT[DT$SEX==1,]$pwgtp15); mean(DT[DT$SEX==2,]$pwgtp15))\n\n\n\nsystem.time(sapply(split(DT$pwgtp15,DT$SEX),mean))\n0.001 0.000 0.001",
+    "created" : 1423246440604.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4068991841",
+    "id" : "185392A2",
+    "lastKnownWriteTime" : 1423456742,
+    "path" : "~/Desktop/OPI/ds_toolbox/quiz1_data.r",
+    "project_path" : "quiz1_data.r",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

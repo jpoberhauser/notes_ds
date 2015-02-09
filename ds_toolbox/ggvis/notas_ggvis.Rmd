@@ -1,0 +1,168 @@
+# ggvis is already installed for you; now load it and start playing around
+library('ggvis')
+
+# change the code below to plot the disp variable of mtcars on the x axis
+mtcars %>% ggvis(~disp, ~mpg) %>% layer_points()
+
+# Change the code below to make a graph with red points
+mtcars %>% ggvis(~wt, ~mpg, fill := "red") %>% layer_points()
+
+# Change the code below draw smooths instead of points
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_smooths()
+
+# Change the code below to make a graph containing both points and a smoothed summary line
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_points() %>% layer_smooths()
+
+
+# = to use data space (data values) , := to set manual values 
+
+pressure %>% 
+  ggvis(~temperature, ~pressure, 
+        fill := ~black) %>% 
+  layer_points()
+
+# Plot the faithful data as described in the second instruction
+faithful %>% 
+    ggvis(~waiting, ~eruptions, size = ~eruptions, opacity := 0.5, fill := "blue", stroke := "black")  %>%
+    layer_points()
+
+# Plot the faithful data as described in the third instruction
+faithful %>%
+    ggvis(~waiting, ~eruptions, fillOpacity = ~eruptions, size:= 100, fill := "red", stroke:="red", shape:="cross") %>%
+    layer_points()
+    
+    # Change the code below to use the lines mark
+pressure %>% ggvis(~temperature, ~pressure) %>% layer_lines()
+
+# Set the properties described in the second instruction in the graph below
+pressure %>% ggvis(~temperature, ~pressure, stroke := "red", strokeWidth:= 2, strokeDash:=6) %>% layer_lines()
+
+
+library("maps")
+texas <- ggplot2::map_data("state", region = "texas")
+texas %>% ggvis(~long, ~lat) %>% layer_paths()
+
+# Same plot, but set the fill property of the texas map to dark orange
+texas %>% ggvis(~long, ~lat, fill:="darkorange") %>% layer_paths()
+
+# Compute the x and y coordinates for a loess smooth line that predicts mpg with the wt
+mtcars %>% 
+compute_smooth(mpg ~ wt)
+# Use 'ggvis()' and 'layer_lines()' to plot the results of compute smooth
+mtcars %>% compute_smooth(mpg ~ wt) %>% ggvis(~resp_, ~pred_) %>% layer_lines()
+
+# Recreate the graph you coded above with 'ggvis()' and 'layer_smooths()' 
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_smooths()
+
+# Extend the code for the second plot and add 'layer_points()' to the graph
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_points() %>% layer_smooths()
+
+
+Transformations:
+===========
+
+points
+paths
+ribbons
+rects
+text
++ compute functions:
+smooths
+model_predictions
+bars
+histograms
+densities
+#Histograms:
+# Build a histogram of the waiting variable of the faithful data set.
+faithful %>%
+    ggvis(~waiting) %>% layer_histograms()
+
+# Build the same histogram, but with a binwidth (width argument) of 5 units
+faithful %>%
+    ggvis(~waiting) %>% layer_histograms(width=5)
+
+
+# Transform the code below: just compute the bins instead of plotting a histogram
+faithful %>% compute_bin(~waiting, width=5) 
+
+# Combine the solution to the first challenge with layer_rects() to build a histogram
+faithful %>% compute_bin(~waiting, width=5) %>% ggvis(x = ~xmin_, x2 = ~xmax_, y=0, y2=~count_) %>% layer_rects()
+
+#Density Plots: 
+faithful %>% ggvis(~waiting, fill := "green") %>% layer_densities()
+
+#Bar Graphs:
+# Complete the code to plot a bar graph of the cyl factor.
+mtcars %>% ggvis(~factor(cyl)) %>% layer_bars()
+
+
+Using ggvis and dplyr:
+==========
+# Change the code to plot a unique smooth line for each value of the cyl variable.
+mtcars %>% group_by(cyl) %>% ggvis(~mpg, ~wt, stroke = ~cyl) %>% layer_smooths()
+
+# Adapt the graph to contain a separate density for each value of cyl.
+mtcars %>% group_by(cyl) %>% ggvis(~mpg) %>% layer_densities()
+
+# Copy and alter the solution to the second challenge to map the fill property to a categorical version of cyl.
+mtcars %>% group_by(cyl) %>% ggvis(~mpg, fill=~factor(cyl)) %>% layer_densities()
+
+
+#group by more than one variable:
+# Alter the graph below: separate density for each unique combination of 'cyl' and 'am'.
+mtcars %>% group_by(cyl,am) %>% ggvis(~mpg, fill = ~factor(cyl)) %>% layer_densities()
+
+# Update the graph below to map `fill` to the unique combinations of the grouping variables.
+mtcars %>% group_by(cyl, am) %>% ggvis(~mpg, fill = ~interaction(cyl, am)) %>% layer_densities()
+
+
+
+mtcars %>% 
+  group_by(am) %>% 
+  ggvis(~mpg, ~hp) %>% 
+  layer_smooths(stroke = ~factor(am)) %>% 
+  layer_points(fill = ~factor(am))
+  
+Interactivity and Layers:
+==========
+You can make your plots interactive by setting a property to the output of an input widget. ggvis comes with seven input widgets: input_checkbox(), input_checkboxgroup(), input_numeric(), input_radiobuttons(), input_select(), input_slider(), and input_text(). By default, each returns their current value as a number or character string.
+
+# Run this code and inspect the output. Follow the link in the instructions for the interactive version
+faithful %>% 
+  ggvis(~waiting, ~eruptions, fillOpacity := 0.5, 
+        shape := input_select(label = "Choose shape:", 
+                              choices = c("circle", "square", "cross", "diamond", 
+                                          "triangle-up", "triangle-down"))) %>% 
+  layer_points()
+
+# Copy the first code chunk and alter the code to make the fill property interactive using a select box
+faithful %>% 
+  ggvis(~waiting, ~eruptions, fillOpacity := 0.5, 
+        shape := input_select(label = "Choose shape:", 
+                              choices = c("circle", "square", "cross", 
+                                          "diamond", "triangle-up", "triangle-down")), 
+        fill := input_select(label = "Choose color:", 
+                             choices = c("black", "red", "blue", "green"))) %>% 
+  layer_points()
+
+# Add radio buttons to control the fill of the plot
+mtcars %>% 
+  ggvis(~mpg, ~wt, 
+        fill := input_radiobuttons(label = "Choose color:", 
+                                   choices = c("black", "red", "blue", "green"))) %>% 
+    layer_points()
+
+
+# Map the bindwidth to a numeric field ("Choose a binwidth:")
+mtcars %>% 
+  ggvis(~mpg) %>% 
+  layer_histograms(width = input_numeric(label = "Choose a binwidth:", value = 1))
+
+# Map the binwidth to a slider bar ("Choose a binwidth:") with the correct specifications
+mtcars %>% 
+  ggvis(~mpg) %>% 
+  layer_histograms(width = input_slider(label = "Choose a binwidth:", min = 1, max = 20))
+  
+  
+  
+  p <- topCitiesInBounds() %>% ggvis(~popCol1,~y_desc %>% layer_points() %>% layer_smooths()
