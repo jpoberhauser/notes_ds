@@ -1,0 +1,51 @@
+---
+title: "Tree Based Methods"
+author: "DS @ OPI"
+date: "18/05/2015"
+output: html_document
+---
+
+These involve **stratifying** or **segmenting** the predictor space into a number of simple regions. 
+
+Since the set of splitting rules used to segment the predictor space can be summarized in a tree, these types of approaches are known as **decision-tree** methods. 
+
+1. Tree-based methods are simple and useful for interpretation.
+
+2. However, they typically are not competitive with the best supervised learning approaches in terms of prediciton accuracy. 
+
+3. Hence, we also discuss **bagging, random forests, and boosting**. These mthods grow multiple tress which are then combined to yield a single concensus prediction. 
+
+4. Combining a large number of trees can often result in dramatic improvements in prediction accuracy, at the expense of some loss of interpretation. 
+
+Decisicion trees can be applied to both regression and classification problems. 
+
+The first cut is the most important factorin determing the response.
+
+##Details of the tree-building process
+
+1. We want to divide the predictor space (the set ofpossible values for $X_1,X_2,...,X_p$) into J distinct and non-overlapping regions, $R_1,R_2,...R_J$.
+
+2. For every observation that falls into the region $R_j$, we make the same prediciton, which is simply the mean of the respnse values for the training observations in $R_j$.
+
+##How do we decide on the splits?
+
+We choose to divide the predictor space into high-dimensional rectangles, or **boxes**, for simplicity and for ease of interpretation of the resulting predictive model.
+
+The goal is to find boxes $R_1$, $R_2,...,R_J$ that minimize the RSS given by:
+
+$\sum y_i - \hat{y_R}^2$ 
+
+Where $\hat{y_R}$ is the mean response for the training observations whithin the jth box. 
+
+
+This is **computationally unfeasable** so for this reason we take a **top-down, greedy** approach that is known as recursive binary splitting.
+
+The approach is **top-down** because it begins at the top of the tree and then successively splits the predictor space; each split is indicated via two new branches further down on the tree. 
+
+It is **greedy** because at each step of the tree-building process, the **best**split is made at that particular step, rather than looking ahead and picking a split that willlead to a better tree in some future step. 
+
+Startwith the full set of the data and all the predictors. We look for the predictor and the split that produces the smallest criterion, which is the sum of squares of eachresponse around the average in the node. 
+
+So make a split to produce two nodes, we'll look at all possible predictors and split points that produce the smallest criterion value.
+
+#More details on Trees
