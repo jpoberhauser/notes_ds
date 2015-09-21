@@ -1,0 +1,17 @@
+{
+    "contents" : "```{r}\nlibrary(data.table)\n#subsetting\nDT = data.table(dfa)\n\n\nDT[2,]\nDT[DT$y == \"a\"]\nDT[c(2,3)] \n#subsets based on rows\n\n\n```\n\n\n```{r}\n#no need for quotation marks\nDT[, list(mean(x), sum(z))]\n\nDT[, table(y)]\n\n#adding a new column:\nDT[,w:=z*2]\n#multiple step functions:\nDT[,m:= {tmp <- (x+z); log2(tmp+5)}]\n#plyr like operations\nDT[, a:= x > 0]\nDT[, b := mean(x+w), by = a]\n#counting the amt of times that something appears:\nDT[, .N, by = x]\n#KEYS:\nsetkey(DT, x)\nDT['a'] #subsets by keys\n#facilitate joins:\nsetkey(DT1, x) ; setkey(DT2, x)\nmerge(DT1, DT2) #merges by the keys (need the same key for both DTs)\n#fast reading:\nfread(file)\n\n```\n\n",
+    "created" : 1423245445377.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3858009440",
+    "id" : "F7611C60",
+    "lastKnownWriteTime" : 1423246355,
+    "path" : "~/Desktop/OPI/ds_toolbox/data_table/notas_Data_Table.Rmd",
+    "project_path" : "data_table/notas_Data_Table.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

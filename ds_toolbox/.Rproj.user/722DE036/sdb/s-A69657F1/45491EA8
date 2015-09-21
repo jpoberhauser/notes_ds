@@ -1,0 +1,16 @@
+{
+    "contents" : "download.file()\nif(!file.exists(\"data\")){dir.create(\"data\")}\ndownload.file(fileURL, \"./data/cameras.csv\", method = \"curl\")\n\ndateDownloaded <- date()\n",
+    "created" : 1423072764601.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1106552142",
+    "id" : "45491EA8",
+    "lastKnownWriteTime" : 1423073169,
+    "path" : "~/Desktop/OPI/ds_toolbox/get_clean_data/notas_data_coursera.r",
+    "project_path" : "get_clean_data/notas_data_coursera.r",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

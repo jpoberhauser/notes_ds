@@ -1,0 +1,17 @@
+{
+    "contents" : "best <- function(state, outcome) {\n        ## Read outcome data\n        df <- read.csv(\"outcome-of-care-measures.csv\", colClasses = \"character\")\n        \n        ## Check that state and outcome are valid\n        ok_parameter1 = c(\"heart attack\",\"heart failure\",\"pneumonia\")\n        if (!outcome %in% ok_parameter1) { stop(\"invalid outcome\")}\n        \n        ok_parameter2 = unique(df[,\"State\"])\n        if (!state %in% ok_parameter2) stop(\"invalid state\")\n        \n        colnamesvec <-  c(\"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack\", \"Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure\", \"Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia\")\n        colName <- colnamesvec[match(outcome,ok_parameter1)]\n        \n        dfa <- df[df$State==state,]\n        minim_pos <- which.min(as.double(dfa[,colName]))\n        ## Return hospital name in that state with lowest 30-day death\n        ## rate\n        dfa[minim_pos,\"Hospital.Name\"]\n}",
+    "created" : 1422639160118.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3428300796",
+    "id" : "FA85261E",
+    "lastKnownWriteTime" : 1422642325,
+    "path" : "~/Desktop/OPI/ds_toolbox/prog_3/best.R",
+    "project_path" : "prog_3/best.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

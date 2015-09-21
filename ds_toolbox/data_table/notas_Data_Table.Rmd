@@ -1,0 +1,41 @@
+```{r}
+library(data.table)
+#subsetting
+DT = data.table(dfa)
+
+
+DT[2,]
+DT[DT$y == "a"]
+DT[c(2,3)] 
+#subsets based on rows
+
+
+```
+
+
+```{r}
+#no need for quotation marks
+DT[, list(mean(x), sum(z))]
+
+DT[, table(y)]
+
+#adding a new column:
+DT[,w:=z*2]
+#multiple step functions:
+DT[,m:= {tmp <- (x+z); log2(tmp+5)}]
+#plyr like operations
+DT[, a:= x > 0]
+DT[, b := mean(x+w), by = a]
+#counting the amt of times that something appears:
+DT[, .N, by = x]
+#KEYS:
+setkey(DT, x)
+DT['a'] #subsets by keys
+#facilitate joins:
+setkey(DT1, x) ; setkey(DT2, x)
+merge(DT1, DT2) #merges by the keys (need the same key for both DTs)
+#fast reading:
+fread(file)
+
+```
+
