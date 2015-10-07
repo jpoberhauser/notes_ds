@@ -1,0 +1,186 @@
+---
+title: "Statistical learning"
+author: "DS @ OPI"
+date: "13/05/2015"
+output: html_document
+---
+#Intro to Statistical Learning:
+
+Sales is a response or target that we wish to predict. Y
+TV is a feature or input or predictor X1
+
+
+**column vector**:
+$X = c(X1,X2,X3)$
+
+$Y = f(X) + e$
+
+With a good f we canmake predictionsofY at new points X = x.
+Undertand how each component, Xj has an impact on Y. 
+
+$f(4) = E(Y|X = 4)$
+The expected value of y given x = 4
+
+minimize the sum of squared errors. 
+$E(Y - g(X))2|X=x|$
+
+e is the **irreducible error**
+
+the reducible error is the difference between the estimate and the true function:
+$[f(x) - f_hat( (x)^2)]$
+
+We actually use the **neighborhood** of point X to find f(x). So we can average allof the neighbors to find f(x).NEarest neighbors idea for regression. 
+
+Conditional expectation is the expectation of the value of f(x) given a ceratin x:
+$f(4) = E(Y|X = 4)$
+
+#Dimensionality and Structured Models:
+Nearest neighbor averagins is good for a small number of features, and a large n.
+
+There are other ways of **smoothing**
+
+Nearest neighbor methods can be **lousy** when p (number of features is large).
+**Reason: is the curse of dimensionality** Nearest neighbors tend to be far away in high dimensions. 
+
+In ten dimensions, you have to go out further and further to capture a certain fraction of the volume of the data cloud. So you lose the local aspect of neighbors. 
+It is very hard to find near neighborhhods in high dimensions and stay local. IF this problem didnt exist, we could use nieghborhoods for every model. 
+
+A **linear** model is an important example of a parametric (structured) model:
+Also, a **quadratic** term helps. $x and x^2$
+
+**thin-plane spline regression model** technique. 
+
+##Trade Offs:
+1. prediction accuracy vs. interpretability
+
+2.Goof-fit vs. under or over-fit
+
+3. Parsimony vs black-box
+        simple, transmittable, explained model vs. complicated.
+
+
+#Model Selection and Bias-Variance Tradeoff
+##Assesing Model Accuracy
+
+Suppose we fit a model $f_hat (x)$ to some training data $Tr = {x_i, y_i}^N$
+
+We could take the average squared prediciton error over Tr.
+
+**MSE (mean squared error) of train data**
+
+But this may be biased, so we want to use 
+
+**MSE of Test data**
+
+Training MSE keeps going down with completxity of model, but the real important measuerement is the MSE prediction error. We can value the performance of model with a Test data set.
+
+##Bias-Variance Trade-off:
+
+$E(y0 − ˆf(x0))^2 = Var( ˆf(x0)) + [Bias( ˆf(x0))]2 + Var(e)$
+
+Var(e) is the irreducible error.
+
+Reducible error is reduced into 2 compnents.
+
+Variance(x)
+      If i model with many training sets, the variablility of my outcome is going to be large.
+      
+Bias(x)
+        Difference between avg prediction at x and the true x. 
+
+As the **flexibility** of f increases, its variance increases, and its bias decreases.
+
+So choosing the flexibility based on average test error amounts to a **bias-variance trade-off**
+
+#Classification
+
+In this case the response variable is **qualitative**
+
+        1. Build a classifier $C(x) that assigns a class label from our set C to future unlabeled observations, X.
+        2. Assess the uncertainty in each classification
+        3. Understand the roles of the different predictors among: 
+$X = (X_1, X_2,...,X_n)$
+
+We have the **conditional class probabilities** at x. The the **Bayes optimal** classifier at x is 
+
+$C(x) = j$   $if  p_j(x) = max{p_1(x),p_2(x)}$
+
+The **Bayes optimal classifier** is the classifier that classifies to the class for which the conditional probability for that element of the class is largest.
+
+SVM build structured model for C(x)
+
+**Nearest Neighbor Classification** Classifying hand-written numbers, knn did as well as any other method.
+
+#Simple Linear Regression(Supervised learning)
+Assumes dependence of $Y on X_1, X_2, ... X_n$ is linear.
+
+Do predictors have anything to say about Y? 
+How strong of a relationship?
+How accurately can we predict the **future**?
+Is the relationship **linear**?
+
+$Y = \beta_0 + \beta_1 X+ e$
+They represent the **intercept and slope**, and are also known as the **coefficients or parameters**
+
+The hat symbol denotes an estimated value.
+
+he residual is the discrepancy between the actual value and the predicted values.
+The total square residuals are **RSS or residual sum of squares**
+We minimze the RSS. That is the least squares line.
+
+The least squares approach chooses $\hat{\beta_0}$ and $\hat{\beta_1}$ to minimize the RSS. The minimizing values can be shown to be:
+
+$\hat{\beta_1} = \frac{sum (x_i - xhat)(y_1-yhat)}{sum (x_i - xhat)^2}$
+
+Square standard error of the slope measures $\hat{\beta_1}$:
+
+        The less concentrated the points are the better pinned down we have the                    slope. (Good)
+
+        The variance of the errors around the line(sigma suared)
+
+
+The standars errors can be used to compute **confidence intervals**. A 95% confidence interval is defined as a range of values such that with 95% probability, the range will contain the true unknown value of the parameter. IT has the form:
+
+$\hat{\beta_1} +- 2 * SE(\hat{\beta_1})$
+
+So, if I form say 100 confidence intervals, 95% of the time they will contain the true value. 
+
+##Hypothesis testing
+
+Standard errors can also be used to perforn **hypothesis tests** on the coeffcients. The most common hypothesis test involves testing the **null hypothesis** of
+
+$H_0$: There is no relationship between Xand Y. (in other words, the slope $\hat{\beta_1}$ is zero)
+
+versus the **alternative hypothesis**
+
+$H_A$: There is some relationship between X and Y (the slope is not zero)
+
+To test the null hypothesis, we compute a **t-statistic** given by
+
+$t = \frac{\hat{\beta_1} -0}{SE(\hat{\beta_1})}$
+
+Using statistical spftware, it is easy to compute the probability of pbserving any value equal to |t| or larger. WE call this probability the **p-value**
+
+T statisic is the Coefficient divided ny the standars error. 
+
+If the t-statistic is huge, we care about that. In the  sales and total sales examples, the t-statistic is large, so it is measuring the effect of TV advertising on sales. It turns out that in order to have a p-value of below 0.05, you need a t-statistic of about 2. p-value is very very small.
+
+**With a p=value of 0.0001, the chance of seeing this data, under the nul-hypothesis that there is no relation between tv ads and sales, is less than 10 to the minus 4.** 
+
+So we conclude that it does have a relation.
+
+Confidence interval is also doing hypothesis testing for you. 
+
+How about the overall **Accuracy of the model**
+
+**Rsquared:** is the fraction of variance explained. 
+
+##Multiple Linear Regression
+Fits a hyperplane to minimze the squared distance between the plane and each observation.
+
+The ideal scenario is when predictors are uncorrelated. Correlations cause problems. The variance of all coefficients tends  increase,somtimes dramatically. 
+
+Interpretations become hazardous. 
+Predictors tend to move together, so trends of causality should be avoided.
+
+
