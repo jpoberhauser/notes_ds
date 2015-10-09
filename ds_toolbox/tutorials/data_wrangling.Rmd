@@ -1,11 +1,32 @@
-#Introduction
-```{r}
+#R for Data Scouting and Wrangling
 
+#Basic Syntax
+##objects and vectors
+```{r}
+x <- 1
+y <- 3
+z <- x + y
+
+vector <- c(1, 3, 6, 9, 8)
+vector2<- c(1,1,1,1,2)
+vector_sumado <- vector+vector2
+vector_sumado[1]
+vector_sumado[8]
+```
+##Strings
+```{r}
+saludo <- "hola scout"
+print(saludo)
+saludos <- paste(saludo, "s", sep="")
+print(saludos)
 ```
 
 
 #Reading Data
+csv, psv, xlsx, dbf, 
+```{r}
 
+```
 
 #Exploring Data (nas, shape, dim,plots, etc)
 
@@ -46,7 +67,7 @@ library(dplyr)
 
 #making metadata
 
-
+#sanity checks
 
 
 ```{r}
