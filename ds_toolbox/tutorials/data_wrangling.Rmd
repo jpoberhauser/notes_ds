@@ -1,8 +1,9 @@
 #R for Data Scouting and Wrangling
 
 #Basic Syntax
-##objects and vectors
+##Objects and Vectors
 ```{r}
+getwd()
 x <- 1
 y <- 3
 z <- x + y
@@ -23,13 +24,23 @@ print(saludos)
 
 
 #Reading Data
-csv, psv, xlsx, dbf, 
-```{r}
+csv, psv, xlsx, dbf
 
+```{r}
+df_csv <- read.csv("../hw1_data.csv")
+
+library(readxl)
+df_xlsx <- read_excel("estatal.xlsx")
+
+library(foreign)
+df_dbf <-read.dbf("TSDem.dbf")
 ```
 
 #Exploring Data (nas, shape, dim,plots, etc)
 
+```{r}
+
+```
 #Useful recodifications
 
 #dplyr
