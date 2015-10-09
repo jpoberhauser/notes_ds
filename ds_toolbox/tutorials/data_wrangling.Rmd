@@ -1,7 +1,7 @@
 #R for Data Scouting and Wrangling
 
-#Basic Syntax
-##Objects and Vectors
+##Basic Syntax
+###Objects and Vectors
 ```{r}
 getwd()
 x <- 1
@@ -14,7 +14,7 @@ vector_sumado <- vector+vector2
 vector_sumado[1]
 vector_sumado[8]
 ```
-##Strings
+###Strings
 ```{r}
 saludo <- "hola scout"
 print(saludo)
@@ -27,7 +27,7 @@ print(saludos)
 csv, psv, xlsx, dbf
 
 ```{r}
-df_csv <- read.csv("../hw1_data.csv")
+df <- read.csv("../hw1_data.csv")
 
 library(readxl)
 df_xlsx <- read_excel("estatal.xlsx")
@@ -39,10 +39,32 @@ df_dbf <-read.dbf("TSDem.dbf")
 #Exploring Data (nas, shape, dim,plots, etc)
 
 ```{r}
+dim(df)
+str(df)
+sum(is.na(df$Ozone))
 
+colMeans(is.na(df[,]))
 ```
 #Useful recodifications
+dates & cvegeos
 
+```{r}
+env <- read.csv("envipe2015admin1.csv")
+head(env$cvegeo)
+
+env$cvegeo <- sprintf("%02d",env$cvegeo)
+head(env$cvegeo)
+
+
+time <- Sys.time()
+print(time)
+month <- format(time, "%b")
+print(month)
+year<- format(time, "%Y")
+print(year)
+num_month <- format(time, "%m")
+print(num_month)
+```
 #dplyr
 
 ###Installation
@@ -54,6 +76,7 @@ library(dplyr)
 ###What is it?
 "A fast, consistent tool for working with data frame like objects, both in memory and out of memory"
 -CRAN
+
 ###What's new about it?
 - verbs
 - "grammar of data wrangling"
@@ -64,11 +87,40 @@ library(dplyr)
 
 ![alt text](tidy.png)
 
+dplyr, using %>% passes the object on theleft hand side as the first argument of function on the right.
+
+
+#Filter
+```{r}
+library(dplyr)
+
+zacatecas <- env %>%
+dplyr::filter(cvegeo == '32')
+
+
+dim(zacatecas)
+print(zacatecas)
+
+col_insegura <- env %>%
+dplyr::select(cvegeo, colonia_insegura)
+
+dim(col_insegura)
+print(col_insegura)
+```
+
+#Remove duplicates
+```{r}
+envipe_sin_duplicados <- env %>%
+distinct()
+```
 
 
 #Making new columns
+```{r}
 
-#Filter
+
+```
+
 
 #Reshape
 
