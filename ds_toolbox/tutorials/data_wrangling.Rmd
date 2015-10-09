@@ -1,0 +1,54 @@
+#Introduction
+```{r}
+
+```
+
+
+#Reading Data
+
+
+#Exploring Data (nas, shape, dim,plots, etc)
+
+#Useful recodifications
+
+#dplyr
+
+###Installation
+```{r}
+install.packages("dplyr")
+library(dplyr)
+```
+
+###What is it?
+"A fast, consistent tool for working with data frame like objects, both in memory and out of memory"
+-CRAN
+###What's new about it?
+- verbs
+- "grammar of data wrangling"
+- new way of thinking about data manipulation
+- efficient data storage backends
+
+###What is it good for?
+
+![alt text](tidy.png)
+
+
+
+#Making new columns
+
+#Filter
+
+#Reshape
+
+#merge/join
+
+#group by/summarise
+
+#making metadata
+
+
+
+
+```{r}
+
+```
