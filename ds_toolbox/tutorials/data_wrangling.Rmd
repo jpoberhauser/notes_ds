@@ -36,7 +36,7 @@ library(foreign)
 df_dbf <-read.dbf("TSDem.dbf")
 ```
 
-#Exploring Data (nas, shape, dim,plots, etc)
+#Exploring Data
 
 ```{r}
 dim(df)
@@ -90,7 +90,7 @@ library(dplyr)
 dplyr, using %>% passes the object on theleft hand side as the first argument of function on the right.
 
 
-#Filter
+#Filter & Subset
 ```{r}
 library(dplyr)
 
@@ -117,16 +117,21 @@ distinct()
 
 #Making new columns
 ```{r}
+env_mutated <- env %>%
+dplyr::mutate(promedio_victimizacion = (victimizacion_hogar_b + victimizacion_hogar_a)/2)
 
+#rankeo de filas
+x <- dplyr::mutate_each(env, funs(min_rank))
+```
+#Group by & Summarise
+```{r}
 
 ```
-
-
 #Reshape
 
 #merge/join
 
-#group by/summarise
+
 
 #making metadata
 
