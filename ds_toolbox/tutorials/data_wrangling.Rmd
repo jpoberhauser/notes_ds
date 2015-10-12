@@ -139,6 +139,7 @@ env_sum
 ```
 #Reshape
 ![alt text](reshape.png)
+
 ```{r}
 library(tidyr)
 messy <- data.frame(
@@ -158,15 +159,51 @@ tidy <- long %>%
 ```
 #Merge/Join
 ![alt text](combine.png)
+
 ```{r}
+messy <- data.frame(
+  estado = c("Aguascalientes", "Oaxaca", "Chiapas"),
+  pobreza = c(67, 80, 64),
+  desocupada = c(56, 90, 50)
+)
+
+catalogo <- data.frame(
+	cvegeo = c("01","12","03","09"),
+	estado = c("Aguascalientes","Oaxaca","Chiapas","DF"),
+	pob_tot = c(10000, 40000, 50000,123785))
+
+messy_con_metadata <- dplyr::full_join(messy,catalogo,by="estado")
+
+messy_con_metadata <- dplyr::left_join(messy,catalogo,by="estado")
+
+anti_joined <- dplyr::anti_join(catalogo,messy,by="estado")
+
 ```
 #Putting it all Together with %>%
 
+```{r}
+library(nycflights13)
+flights %>%
+  group_by(year, month, day) %>%
+  select(arr_delay, dep_delay) %>%
+  summarise(
+    arr = mean(arr_delay, na.rm = TRUE),
+    dep = mean(dep_delay, na.rm = TRUE)
+  ) %>%
+  filter(arr > 30 | dep > 30)
 
-#making metadata
+```
+#Making/Extracting Metadata
 
-#sanity checks
+```{r}
 
+```
+#Sanity Checks
+-suma de fechas
+-agrupacion de cvegeos
+-niveles de variables
+-vacios
+-comparacion a publicacion fuente
 
 ```{r}
 
