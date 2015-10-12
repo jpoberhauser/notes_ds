@@ -218,36 +218,55 @@ y una vez en estado tidy (básicamente es reshape de las tablas) se realizan los
 siguientes pasos.
 
 00. descarga del hdfs
+	
 	-extracción de datos (df)
+	
 	-extracción metadatos (de fuente y de vars. mdf,fmdf)
 
 01. limpieza
+	
 	- codificación de vacíos
+	
 	- hologación claves/nombres
+	
 	- codificación columnas
 
 02 agregaciones
+	
 	– cálculo agg’s temporales superiores (df’s)
+	
 	– cálculo agg’s espaciales superiores (df’s)
+	
 	– generación metadata (mdf’s)
 
 03 quintiles
+	
 	– calculo quintiles por variable por agg_geo (usa spantemporal)
+	
 	– actualización metadf
 
 04 estadisticos
+	
 	– calculo estadísticos básicos
+	
 	– actualización mdf’s
 
 05 calidad
+	
 	– cálculo scores calidad
+	
 	– actualización mdf’s
 
 06 carga al hdfs
+	
 	– carga de df’s
+	
 	– carga de mdf’s
 
 07 transformaciones
+	
 	– lectura df’s y mdf’s
+	
 	– ejecución transformaciones
+	
 	– escritura df’s y mdf’s
