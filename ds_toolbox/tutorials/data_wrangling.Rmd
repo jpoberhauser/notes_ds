@@ -157,6 +157,7 @@ tidy <- long %>%
 	spread(indicador,conteo)
 ```
 #Merge/Join
+![alt text](combine.png)
 ```{r}
 ```
 #Putting it all Together with %>%
