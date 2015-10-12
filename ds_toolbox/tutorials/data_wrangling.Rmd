@@ -120,17 +120,46 @@ distinct()
 env_mutated <- env %>%
 dplyr::mutate(promedio_victimizacion = (victimizacion_hogar_b + victimizacion_hogar_a)/2)
 
+env_mutated <- env %>%
+dplyr::mutate(suma_sin_sentido = victimizacion_hogar_b + victimizacion_hogar_a)
+
 #rankeo de filas
 x <- dplyr::mutate_each(env, funs(min_rank))
 ```
-#Group by & Summarise
+#Summarise & Group by  
 ```{r}
+env_sum <- summarise(env, avg = mean(victimizacion_hogar_a))
+env_sum
 
+env_sum <- env %>% 
+dplyr::select(victimizacion_hogar_a,victimizacion_hogar_b,victimizacion_pers_b)%>%
+summarise_each(funs(mean))
+
+env_sum
 ```
 #Reshape
+![alt text](reshape.png)
+```{r}
+library(tidyr)
+messy <- data.frame(
+  estado = c("Aguascalientes", "Oaxaca", "Chiapas"),
+  pobreza = c(67, 80, 64),
+  desocupada = c(56, 90, 50)
+)
 
-#merge/join
+long <- messy %>%
+  gather(indicador, conteo, pobreza:desocupada)
 
+wide <- long %>%
+	spread(estado,conteo)
+
+tidy <- long %>%
+	spread(indicador,conteo)
+```
+#Merge/Join
+```{r}
+```
+#Putting it all Together with %>%
 
 
 #making metadata
