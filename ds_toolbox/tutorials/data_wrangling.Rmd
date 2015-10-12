@@ -177,12 +177,12 @@ messy_con_metadata <- dplyr::full_join(messy,catalogo,by="estado")
 messy_con_metadata <- dplyr::left_join(messy,catalogo,by="estado")
 
 anti_joined <- dplyr::anti_join(catalogo,messy,by="estado")
-
 ```
 #Putting it all Together with %>%
 
 ```{r}
 library(nycflights13)
+?nycflights13
 flights %>%
   group_by(year, month, day) %>%
   select(arr_delay, dep_delay) %>%
@@ -193,18 +193,19 @@ flights %>%
   filter(arr > 30 | dep > 30)
 
 ```
-#Making/Extracting Metadata
-
-```{r}
-
-```
 #Sanity Checks
--suma de fechas
--agrupacion de cvegeos
--niveles de variables
--vacios
--comparacion a publicacion fuente
 
 ```{r}
+sampleado <- sample_frac(df_xlsx, 0.1, replace = TRUE)
+dim(sampleado)
 
+sampleado <- sample_n(df_xlsx, 15, replace = TRUE)
+dim(sampleado)
+
+check_df <- df_xlsx %>% 
+filter(SUBTIPO == 'EXTORSION',ENTIDAD =='AGUASCALIENTES') %>%
+select(ENTIDAD, SUBTIPO,AÑO,ENERO) 
 ```
+
+
+https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
