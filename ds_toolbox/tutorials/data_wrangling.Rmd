@@ -1,5 +1,6 @@
 #R for Data Scouting and Wrangling
 
+
 ##Basic Syntax
 ###Objects and Vectors
 ```{r}
@@ -23,7 +24,7 @@ print(saludos)
 ```
 
 
-#Reading Data
+##Reading Data
 csv, psv, xlsx, dbf
 
 ```{r}
@@ -36,7 +37,7 @@ library(foreign)
 df_dbf <-read.dbf("TSDem.dbf")
 ```
 
-#Exploring Data
+##Exploring Data
 
 ```{r}
 dim(df)
@@ -45,7 +46,7 @@ sum(is.na(df$Ozone))
 
 colMeans(is.na(df[,]))
 ```
-#Useful recodifications
+##Useful recodifications
 dates & cvegeos
 
 ```{r}
@@ -65,7 +66,7 @@ print(year)
 num_month <- format(time, "%m")
 print(num_month)
 ```
-#dplyr
+##dplyr
 
 ###Installation
 ```{r}
@@ -90,7 +91,7 @@ library(dplyr)
 dplyr, using %>% passes the object on theleft hand side as the first argument of function on the right.
 
 
-#Filter & Subset
+##Filter & Subset
 ```{r}
 library(dplyr)
 
@@ -108,14 +109,14 @@ dim(col_insegura)
 print(col_insegura)
 ```
 
-#Remove duplicates
+##Remove duplicates
 ```{r}
 envipe_sin_duplicados <- env %>%
 distinct()
 ```
 
 
-#Making new columns
+##Making new columns
 ```{r}
 env_mutated <- env %>%
 dplyr::mutate(promedio_victimizacion = (victimizacion_hogar_b + victimizacion_hogar_a)/2)
@@ -126,7 +127,7 @@ dplyr::mutate(suma_sin_sentido = victimizacion_hogar_b + victimizacion_hogar_a)
 #rankeo de filas
 x <- dplyr::mutate_each(env, funs(min_rank))
 ```
-#Summarise & Group by  
+##Summarise & Group by  
 ```{r}
 env_sum <- summarise(env, avg = mean(victimizacion_hogar_a))
 env_sum
@@ -137,7 +138,7 @@ summarise_each(funs(mean))
 
 env_sum
 ```
-#Reshape
+##Reshape
 ![alt text](reshape.png)
 
 ```{r}
@@ -157,7 +158,7 @@ wide <- long %>%
 tidy <- long %>%
 	spread(indicador,conteo)
 ```
-#Merge/Join
+##Merge/Join
 ![alt text](combine.png)
 
 ```{r}
@@ -178,7 +179,7 @@ messy_con_metadata <- dplyr::left_join(messy,catalogo,by="estado")
 
 anti_joined <- dplyr::anti_join(catalogo,messy,by="estado")
 ```
-#Putting it all Together with %>%
+##Putting it all Together with %>%
 
 ```{r}
 library(nycflights13)
@@ -193,7 +194,7 @@ flights %>%
   filter(arr > 30 | dep > 30)
 
 ```
-#Sanity Checks
+##Sanity Checks
 
 ```{r}
 sampleado <- sample_frac(df_xlsx, 0.1, replace = TRUE)
@@ -209,3 +210,44 @@ select(ENTIDAD, SUBTIPO,AÑO,ENERO)
 
 
 https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+#Pipeline de Wrangling OPIs (PAsos Data Wrangling)
+
+Suponiendo que los csv están en el hadoop se tiene un proceso de tydification
+y una vez en estado tidy (básicamente es reshape de las tablas) se realizan los
+siguientes pasos.
+
+00. descarga del hdfs
+	-extracción de datos (df)
+	-extracción metadatos (de fuente y de vars. mdf,fmdf)
+
+01. limpieza
+	- codificación de vacíos
+	- hologación claves/nombres
+	- codificación columnas
+
+02 agregaciones
+	– cálculo agg’s temporales superiores (df’s)
+	– cálculo agg’s espaciales superiores (df’s)
+	– generación metadata (mdf’s)
+
+03 quintiles
+	– calculo quintiles por variable por agg_geo (usa spantemporal)
+	– actualización metadf
+
+04 estadisticos
+	– calculo estadísticos básicos
+	– actualización mdf’s
+
+05 calidad
+	– cálculo scores calidad
+	– actualización mdf’s
+
+06 carga al hdfs
+	– carga de df’s
+	– carga de mdf’s
+
+07 transformaciones
+	– lectura df’s y mdf’s
+	– ejecución transformaciones
+	– escritura df’s y mdf’s
