@@ -217,11 +217,12 @@ Suponiendo que los csv están en el hadoop se tiene un proceso de tydification
 y una vez en estado tidy (básicamente es reshape de las tablas) se realizan los
 siguientes pasos.
 
+
 00. descarga del hdfs
 	
-	-extracción de datos (df)
+	- extracción de datos (df)
 	
-	-extracción metadatos (de fuente y de vars. mdf,fmdf)
+	- extracción metadatos (de fuente y de vars. mdf,fmdf)
 
 01. limpieza
 	
@@ -231,42 +232,42 @@ siguientes pasos.
 	
 	- codificación columnas
 
-02 agregaciones
+02. agregaciones
 	
-	– cálculo agg’s temporales superiores (df’s)
+	- cálculo agg’s temporales superiores (df’s)
 	
-	– cálculo agg’s espaciales superiores (df’s)
+	- cálculo agg’s espaciales superiores (df’s)
 	
-	– generación metadata (mdf’s)
+	- generación metadata (mdf’s)
 
-03 quintiles
+03. quintiles
 	
-	– calculo quintiles por variable por agg_geo (usa spantemporal)
+	- calculo quintiles por variable por agg_geo (usa spantemporal)
 	
-	– actualización metadf
+	- actualización metadf
 
-04 estadisticos
+04. estadisticos
 	
-	– calculo estadísticos básicos
+	- calculo estadísticos básicos
 	
-	– actualización mdf’s
+	- actualización mdf’s
 
-05 calidad
+05. calidad
 	
-	– cálculo scores calidad
+	- cálculo scores calidad
 	
-	– actualización mdf’s
+	- actualización mdf’s
 
-06 carga al hdfs
+06. carga al hdfs
 	
-	– carga de df’s
+	- carga de df’s
 	
-	– carga de mdf’s
+	- carga de mdf’s
 
-07 transformaciones
+07. transformaciones
 	
-	– lectura df’s y mdf’s
+	- lectura df’s y mdf’s
 	
-	– ejecución transformaciones
+	- ejecución transformaciones
 	
-	– escritura df’s y mdf’s
+	- escritura df’s y mdf’s

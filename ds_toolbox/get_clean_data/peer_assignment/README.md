@@ -9,4 +9,4 @@ This file Does the following things to the Human Activity Recognition Using Smar
 4. Appropriately labels the data set with descriptive variable names. 
 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-The data is containedin thesame working directory as the run_analysis.R file
+The data is contained in the same working directory as the run_analysis.R file
